@@ -68,6 +68,7 @@ ng.module('smart-table')
         return safeGetter($scope);
       }, function (newValue, oldValue) {
         if (newValue !== oldValue) {
+          console.log('updating pagination start to 0 in safeGetter watch');
           tableState.pagination.start = 0;
           updateSafeCopy();
         }
@@ -129,6 +130,7 @@ ng.module('smart-table')
         pagination.start = pagination.start >= filtered.length ? (pagination.numberOfPages - 1) * pagination.number : pagination.start;
         output = filtered.slice(pagination.start, pagination.start + parseInt(pagination.number));
       }
+      console.log('calling displaySetter with', $scope, output || filtered, 'pagination number ', pagination.number);
       displaySetter($scope, output || filtered);
     };
 
@@ -160,6 +162,7 @@ ng.module('smart-table')
      * @param {Number} number - the number of item in the slice
      */
     this.slice = function splice (start, number) {
+      console.log('slice called with ', start, number);
       tableState.pagination.start = start;
       tableState.pagination.number = number;
       return this.pipe();
