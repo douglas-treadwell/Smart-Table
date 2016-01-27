@@ -93,6 +93,7 @@ ng.module('smart-table')
         return safeSrc && safeSrc.length ? safeSrc[0] : undefined;
       }, function (newValue, oldValue) {
         if (newValue !== oldValue) {
+          console.log('safeGetter exists watch calling updateSafeCopy (calls pipe) with pagination start to 0');
           updateSafeCopy();
         }
       });
@@ -101,6 +102,7 @@ ng.module('smart-table')
         return safeSrc ? safeSrc.length : 0;
       }, function (newValue, oldValue) {
         if (newValue !== safeCopy.length) {
+          console.log('safeGetter length watch calling updateSafeCopy (calls pipe) with pagination start to 0');
           updateSafeCopy();
         }
       });
@@ -108,7 +110,7 @@ ng.module('smart-table')
         return safeGetter($scope);
       }, function (newValue, oldValue) {
         if (newValue !== oldValue) {
-          console.log('updating pagination start to 0 in safeGetter watch');
+          console.log('safeGetter equality watch calling updateSafeCopy (calls pipe) with pagination start to 0');
           tableState.pagination.start = 0;
           updateSafeCopy();
         }
