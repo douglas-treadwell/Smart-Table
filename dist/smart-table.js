@@ -119,7 +119,7 @@ ng.module('smart-table')
      * @param {Function | String} predicate - function or string which will be used as predicate for the sorting
      * @param [reverse] - if you want to reverse the order
      */
-    this.sortBy = function sortBy (predicate, reverse) {
+    this.sortBy = function sortBy (predicate, reverse, keepPage) {
       tableState.sort.predicate = predicate;
       tableState.sort.reverse = reverse === true;
 
@@ -129,7 +129,10 @@ ng.module('smart-table')
         delete tableState.sort.functionName;
       }
 
-      tableState.pagination.start = 0;
+      if ( !keepPage ) {
+        tableState.pagination.start = 0;
+      }
+
       return this.pipe();
     };
 
@@ -352,7 +355,7 @@ ng.module('smart-table')
 				}
 
 				//view --> table state
-				function sort () {
+				function sort (defaultSort) {
 					index++;
 					var func;
 					predicate = ng.isFunction(getter(scope)) || ng.isArray(getter(scope)) ? getter(scope) : attr.stSort;
@@ -363,7 +366,7 @@ ng.module('smart-table')
 						ctrl.tableState().pagination.start = 0;
 						func = ctrl.pipe.bind(ctrl);
 					} else {
-						func = ctrl.sortBy.bind(ctrl, predicate, index % 2 === 0);
+						func = ctrl.sortBy.bind(ctrl, predicate, index % 2 === 0, defaultSort /* keeps current page if true */);
 					}
 					if (promise !== null) {
 						$timeout.cancel(promise);
@@ -383,7 +386,7 @@ ng.module('smart-table')
 
 				if (sortDefault) {
 					index = sortDefault === 'reverse' ? 1 : 0;
-					sort();
+					sort(true);
 				}
 
 				//table state --> view

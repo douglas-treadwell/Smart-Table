@@ -21,7 +21,7 @@ ng.module('smart-table')
 				}
 
 				//view --> table state
-				function sort () {
+				function sort (defaultSort) {
 					index++;
 					var func;
 					predicate = ng.isFunction(getter(scope)) || ng.isArray(getter(scope)) ? getter(scope) : attr.stSort;
@@ -32,7 +32,7 @@ ng.module('smart-table')
 						ctrl.tableState().pagination.start = 0;
 						func = ctrl.pipe.bind(ctrl);
 					} else {
-						func = ctrl.sortBy.bind(ctrl, predicate, index % 2 === 0);
+						func = ctrl.sortBy.bind(ctrl, predicate, index % 2 === 0, defaultSort /* keeps current page if true */);
 					}
 					if (promise !== null) {
 						$timeout.cancel(promise);
@@ -52,7 +52,7 @@ ng.module('smart-table')
 
 				if (sortDefault) {
 					index = sortDefault === 'reverse' ? 1 : 0;
-					sort();
+					sort(true);
 				}
 
 				//table state --> view
