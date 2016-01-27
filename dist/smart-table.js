@@ -131,6 +131,7 @@ ng.module('smart-table')
       }
 
       tableState.pagination.start = 0;
+      console.log('sortBy is calling pipe, after setting pagination start to 0');
       return this.pipe();
     };
 
@@ -205,6 +206,7 @@ ng.module('smart-table')
       console.log('slice called with ', start, number);
       tableState.pagination.start = start;
       tableState.pagination.number = number;
+      console.log('slice is calling pipe');
       return this.pipe();
     };
 
