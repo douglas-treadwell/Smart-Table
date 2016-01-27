@@ -7,6 +7,10 @@ ng.module('smart-table')
       },
       link: function (scope, element, attrs, ctrl) {
         stTableService.register(scope.id, ctrl);
+
+        scope.$on('$destroy', function() {
+          stTableService.deregister(scope.id);
+        });
       }
     };
   }]);
