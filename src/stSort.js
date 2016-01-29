@@ -71,12 +71,16 @@ ng.module('smart-table')
 				scope.$watch(function () {
 					return ctrl.tableState().sort;
 				}, function (newValue) {
+					console.log('tableState().sort watch fired', newValue);
+					console.log('newValue predicate ', newValue.predicate, 'old predicate', predicate);
 					if (newValue.predicate !== predicate) {
+						console.log('if path');
 						index = 0;
 						element
 							.removeClass(classAscent)
 							.removeClass(classDescent);
 					} else {
+						console.log('else path');
 						index = newValue.reverse === true ? 2 : 1;
 						element
 							.removeClass(stateClasses[index % 2])
