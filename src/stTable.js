@@ -111,7 +111,10 @@ ng.module('smart-table')
       }
 
       if ( !keepPage ) {
+        console.log('dont keep the page');
         tableState.pagination.start = 0;
+      } else {
+        console.log('keep the page', keepPage);
       }
 
       return this.pipe();

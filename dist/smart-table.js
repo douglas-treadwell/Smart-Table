@@ -152,7 +152,10 @@ ng.module('smart-table')
       }
 
       if ( !keepPage ) {
+        console.log('dont keep the page');
         tableState.pagination.start = 0;
+      } else {
+        console.log('keep the page', keepPage);
       }
 
       return this.pipe();
@@ -400,6 +403,7 @@ ng.module('smart-table')
 						ctrl.tableState().pagination.start = 0;
 						func = ctrl.pipe.bind(ctrl);
 					} else {
+						console.log('func = sortBy');
 						func = ctrl.sortBy.bind(ctrl, predicate, index % 2 === 0, defaultSort /* keeps current page if true */);
 					}
 					if (promise !== null) {
@@ -420,6 +424,7 @@ ng.module('smart-table')
 
 				if (sortDefault) {
 					index = sortDefault === 'reverse' ? 1 : 0;
+					console.log('sortDefault');
 					sort(true);
 				}
 
