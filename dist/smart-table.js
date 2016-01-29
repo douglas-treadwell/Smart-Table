@@ -414,7 +414,9 @@ ng.module('smart-table')
 
 				element.bind('click', function sortClick () {
 					if (predicate) {
-						scope.$apply(sort);
+						scope.$apply(function() { // $apply passes $scope to the called function
+							sort(); // avoid passing this to sort(); could also use .bind but this is trivial
+						});
 					}
 				});
 
