@@ -1,5 +1,5 @@
 ng.module('smart-table')
-  .factory('stTableService', function ($q, $timeout) {
+  .factory('stTableService', ['$q', '$timeout', function ($q, $timeout) {
     var idCtrlMap = { };
     var waiting   = { };
 
@@ -48,4 +48,4 @@ ng.module('smart-table')
         return deferred.promise;
       }
     };
-  });
+  }]);
